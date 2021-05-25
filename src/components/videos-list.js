@@ -1,10 +1,16 @@
 import React from "react";
-import List from "react-list-select";
+import { Nav } from "rsuite";
+import "rsuite/dist/styles/rsuite-default.css";
 
-function VideosList(props) {
-    const videoItems = props.videos.map((video) => video.header);
+function VideosList({ videos, ...props }) {
     return (
-        <List items={videoItems} multiple={false} onChange={props.onClick} />
+        <Nav {...props} appereance="default" vertical>
+            {videos.map((video) => (
+                <Nav.Item eventKey={video.id} key={video.id}>
+                    {video.header}
+                </Nav.Item>
+            ))}
+        </Nav>
     );
 }
 

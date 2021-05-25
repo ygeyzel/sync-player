@@ -44,9 +44,7 @@ class Index extends React.Component {
             });
     }
 
-    onVideoSelect(index) {
-        const videoId = this.state.videos[index].id;
-
+    onVideoSelect(videoId) {
         let newState = {};
         fbDB.collection("videos-info")
             .doc(videoId)
@@ -85,7 +83,7 @@ class Index extends React.Component {
                 <div className="videosList">
                     <VideosList
                         videos={this.state.videos}
-                        onClick={(i) => this.onVideoSelect(i)}
+                        onSelect={(videoId) => this.onVideoSelect(videoId)}
                     />
                 </div>
             </div>
