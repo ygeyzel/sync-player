@@ -1,7 +1,6 @@
 import React from "react";
 import ReactPlayer from "react-player";
 
-
 class SyncPlayer extends React.Component {
     constructor(props) {
         super(props);
@@ -11,12 +10,13 @@ class SyncPlayer extends React.Component {
 
     seekToOffset() {
         const player = this.playerRef.current;
-        const duration = player.getDuration();
+        const duration = player.getDuration() * 1000;
         const startTime = this.props.startTime;
-        const currentTime = Math.round(Date.now() / 1000);
+        const currentTime = Date.now();
 
-        const offset = (currentTime - startTime) % duration;
-        player.seekTo(offset);
+        let offset = (currentTime - startTime) / duration;
+        offset = offset - Math.floor(offset);
+        player.seekTo(offset, "fraction");
     }
 
     render() {
