@@ -1,20 +1,26 @@
+:root {
+    --playerWidth: 640px;
+    --playerHeight: 360px;
+}
+
 .index {
     position: relative;
     display: grid;
     grid-template-areas:
-        'header header'
-        'player videos';
+        "header header"
+        "player videos"
+        "controls videos";
     left: 20px;
     float: left;
 }
 
 .videoHeader {
-    grid-area:header;
+    grid-area: header;
 }
 
 .player {
-    width: 640px;
-    height: 360px;
+    width: var(--playerWidth);
+    height: var(--playerHeight);
     grid-area: player;
     background-color: grey;
 }
@@ -24,3 +30,10 @@
     padding-left: 5px;
 }
 
+.controlsBar {
+    grid-area: controls;
+    border-top: white solid 2px;
+    width: var(--playerWidth);
+    height: 50px;
+    background-color: black;
+}

@@ -78,6 +78,7 @@ class Index extends React.Component {
                     <SyncPlayer
                         startTime={this.state.videoStartTime}
                         url={this.state.videoUrl}
+                        key={`player_${Date.now()}`}
                     />
                 </div>
                 <div className="videosList">
