@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 import firebase from "firebase/app";
 
 import "./index.css";
@@ -9,16 +10,14 @@ import "firebase/firestore";
 import SyncPlayer from "./components/sync-player";
 import VideosList from "./components/videos-list";
 
-if (!firebase.apps.length) {
-    const firebase_config = require("./secrets/fbconfig");
-    firebase.initializeApp(firebase_config);
-} else {
-    firebase.app();
-}
-
-let fbStorage = firebase.storage();
-let fbStorageRef = fbStorage.ref();
-let fbDB = firebase.firestore();
+const getFirebaseConfig = new Promise((resolve, reject) => {
+    axios
+        .get(`/__/firebase/init.json`)
+        .then((res) => {
+            resolve(res.data);
+        })
+        .catch((err) => reject(err));
+});
 
 class Index extends React.Component {
     constructor(props) {
@@ -30,7 +29,7 @@ class Index extends React.Component {
             videos: [],
         };
 
-        fbDB.collection("videos-info")
+        this.props.DB.collection("videos-info")
             .get()
             .then((res) => {
                 const videosInfo = res.docs.map((doc) => {
@@ -46,13 +45,13 @@ class Index extends React.Component {
 
     onVideoSelect(videoId) {
         let newState = {};
-        fbDB.collection("videos-info")
+        this.props.DB.collection("videos-info")
             .doc(videoId)
             .get()
             .then((res) => {
                 const video = res.data();
 
-                let urlPromise = fbStorageRef
+                let urlPromise = this.props.storageRef
                     .child(video.ref.path)
                     .getDownloadURL();
 
@@ -92,4 +91,17 @@ class Index extends React.Component {
     }
 }
 
-ReactDOM.render(<Index />, document.getElementById("root"));
+getFirebaseConfig
+    .then((result) => {
+        firebase.initializeApp(result);
+
+        let fbDB = firebase.firestore();
+        let fbStorage = firebase.storage();
+        let fbStorageRef = fbStorage.ref();
+
+        ReactDOM.render(
+            <Index DB={fbDB} storageRef={fbStorageRef} />,
+            document.getElementById("root")
+        );
+    })
+    .catch((err) => console.log(err));
