@@ -1,6 +1,8 @@
 :root {
     --playerWidth: 640px;
     --playerHeight: 360px;
+    --controlsBarHeight: 50px;
+    --controlsBarBorderRadius: 15px;
 }
 
 .index {
@@ -34,6 +36,22 @@
     grid-area: controls;
     border-top: white solid 2px;
     width: var(--playerWidth);
-    height: 50px;
+    height: var(--controlsBarHeight);
     background-color: black;
+    border-radius: var(--controlsBarBorderRadius);
+    display: flex;
+    align-items: center;
+}
+
+img.controlsBarIcon:hover {
+    background-color: grey;
+}
+
+img.controlsBarIcon {
+    position: relative;
+    padding: 5px 5px 5px 5px;
+    height: calc(0.7 * var(--controlsBarHeight));
+    width: auto;
+    left: calc(0.5 * var(--controlsBarBorderRadius));
+    border-radius: 30%;
 }

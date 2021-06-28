@@ -5,6 +5,7 @@ function ControlsBar({ buttons }) {
         <div className="controlsBar">
             {buttons.map((button) => (
                 <img
+                    className="controlsBarIcon"
                     src={button.img}
                     onClick={button.clickCB}
                     alt="?"
