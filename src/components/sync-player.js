@@ -5,15 +5,19 @@ import ControlsBar from "./controls.js";
 
 const PLAY_ICON = "playicon.png";
 const PAUSE_ICON = "pauseicon.png";
+const FULLSCREEN_ICON = "fullscreenicon.png";
 
 class SyncPlayer extends React.Component {
     constructor(props) {
         super(props);
 
         this.playerRef = React.createRef();
+        this.playerDivRef = React.createRef();
+
         this.seekToOffset = this.seekToOffset.bind(this);
         this.pause = this.pause.bind(this);
         this.play = this.play.bind(this);
+        this.setFullscreen = this.setFullscreen.bind(this);
 
         this.state = {
             playing: true,
@@ -39,24 +43,34 @@ class SyncPlayer extends React.Component {
         this.setState({ playing: true });
     }
 
+    setFullscreen() {
+        const playerDiv = this.playerDivRef.current;
+        playerDiv.requestFullscreen();
+    }
+
     render() {
         const controlsBarButtons = [
             {
                 img: this.state.playing ? PAUSE_ICON : PLAY_ICON,
                 clickCB: this.state.playing ? this.pause : this.play,
             },
+            { img: FULLSCREEN_ICON, clickCB: this.setFullscreen },
         ];
 
         return (
-            <div>
+            <div className="player" ref={this.playerDivRef}>
                 <ReactPlayer
                     playing={this.state.playing}
                     ref={this.playerRef}
                     onPlay={this.seekToOffset}
                     url={this.props.url ? this.props.url : ""}
                     loop={true}
+                    width="100%"
+                    height="100%"
                 />
-                <ControlsBar buttons={controlsBarButtons} />
+                <ControlsBar
+                    buttons={this.props.url ? controlsBarButtons : []}
+                />
             </div>
         );
     }

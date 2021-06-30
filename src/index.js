@@ -73,7 +73,7 @@ class Index extends React.Component {
                 <div className="videoHeader">
                     <h3>{this.state.videoHeader}</h3>
                 </div>
-                <div className="player">
+                <div>
                     <SyncPlayer
                         startTime={this.state.videoStartTime}
                         url={this.state.videoUrl}

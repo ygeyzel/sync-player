@@ -2,7 +2,7 @@
     --playerWidth: 640px;
     --playerHeight: 360px;
     --controlsBarHeight: 50px;
-    --controlsBarBorderRadius: 15px;
+    --controlsBarBorderRadius: 10px;
 }
 
 .index {
@@ -37,7 +37,7 @@
     border-top: white solid 2px;
     width: var(--playerWidth);
     height: var(--controlsBarHeight);
-    background-color: black;
+    background-color: #606060;
     border-radius: var(--controlsBarBorderRadius);
     display: flex;
     align-items: center;
