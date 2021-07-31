@@ -6,6 +6,7 @@ import firebase from "firebase/app";
 import "./index.css";
 import "firebase/storage";
 import "firebase/firestore";
+import "firebase/auth";
 
 import SyncPlayer from "./components/sync-player";
 import VideosList from "./components/videos-list";
@@ -99,9 +100,11 @@ getFirebaseConfig
         let fbStorage = firebase.storage();
         let fbStorageRef = fbStorage.ref();
 
-        ReactDOM.render(
-            <Index DB={fbDB} storageRef={fbStorageRef} />,
-            document.getElementById("root")
-        );
+        firebase.auth().signInAnonymously().then(() => {
+            ReactDOM.render(
+                <Index DB={fbDB} storageRef={fbStorageRef} />,
+                document.getElementById("root")
+            );
+        })
     })
     .catch((err) => console.log(err));
