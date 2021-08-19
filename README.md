@@ -1,3 +1,3 @@
-Work in progress
+Web app that playing videos (approximately) synchronised on different devices, done mostly for educational purposes.
 
-Web app for playing videos synchronically.
+<https://sync-player-21122.web.app>

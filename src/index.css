@@ -11,8 +11,11 @@
     grid-template-areas:
         "header header"
         "player videos"
-        "controls videos";
-    left: 20px;
+        "controls videos"
+        "explanation videos";
+    left: 50%;
+    padding-top: 5%;
+    transform: translate(-50%);
     float: left;
 }
 
@@ -54,4 +57,14 @@ img.controlsBarIcon {
     width: auto;
     left: calc(0.5 * var(--controlsBarBorderRadius));
     border-radius: 30%;
+}
+
+.explanation {
+    grid-area: explanation;
+    align: center;
+    padding-top: calc(1.5 * var(--controlsBarHeight));
+    width: calc(0.75 * var(--playerWidth));
+    display: flex;
+    font-size: 11px;
+    color: #777777;
 }

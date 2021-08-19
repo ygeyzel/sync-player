@@ -11,6 +11,10 @@ import "firebase/auth";
 import SyncPlayer from "./components/sync-player";
 import VideosList from "./components/videos-list";
 
+const explanationText =
+    `The selected video is played in loop and sync to a fixed start start time,
+    so it will be played approximately on the same time on differnt devices.`;
+
 const getFirebaseConfig = new Promise((resolve, reject) => {
     axios
         .get(`/__/firebase/init.json`)
@@ -86,6 +90,9 @@ class Index extends React.Component {
                         videos={this.state.videos}
                         onSelect={(videoId) => this.onVideoSelect(videoId)}
                     />
+                </div>
+                <div className="explanation">
+                    {explanationText}
                 </div>
             </div>
         );
